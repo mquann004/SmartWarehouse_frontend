@@ -1,0 +1,61 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: 2rem;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: var(--bg-glass);
+  padding: 1rem 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+}
+
+.title h1 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.title p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timeDisplay {
+  background: rgba(0,0,0,0.2);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  color: var(--accent-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* ===== Light Mode MainLayout ===== */
+:global([data-theme="light"]) .header {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .timeDisplay {
+  background: rgba(59, 130, 246, 0.06);
+}
+

@@ -1,0 +1,716 @@
+.dashboard {
+  display: grid;
+  gap: 2rem;
+}
+
+.overviewCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardClickable {
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cardClickable:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  border-color: var(--accent-primary);
+}
+
+.cardClickable:active {
+  transform: translateY(-1px);
+}
+
+.cardHint {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.25s ease;
+}
+
+.cardClickable:hover .cardHint {
+  opacity: 0.7;
+  transform: translateY(0);
+}
+
+.cardIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.cardInfo h3 {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.cardInfo .value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chartSection {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chartFilters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filterBtn {
+  background: rgba(0,0,0,0.2);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.filterBtn.active {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.chartContainer {
+  height: 350px;
+  width: 100%;
+}
+
+.warehouseSection {
+  padding: 1.5rem;
+}
+
+.warehouseHeader {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.viewToggle {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.toggleBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.toggleBtn:hover {
+  color: var(--text-primary);
+}
+
+.toggleBtn.active {
+  background: var(--accent-primary);
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+}
+
+.shelvesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+.shelf {
+  background: rgba(0,0,0,0.2);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  width: 100%;
+}
+
+.shelfTitle {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.shelfGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.slot {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  height: 60px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.slot:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-primary);
+}
+
+.slot.occupied {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--accent-primary);
+}
+
+.slot.scheduledExport {
+  border-color: var(--status-danger);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.slot.occupied::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-success);
+  box-shadow: 0 0 8px var(--status-success);
+}
+
+.slot.scheduledExport::after {
+  background: var(--status-danger);
+  box-shadow: 0 0 8px var(--status-danger);
+}
+
+.slotStatusLabel {
+  position: absolute;
+  top: -10px;
+  background: var(--status-danger);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  z-index: 5;
+}
+
+.shelfFull {
+  border-color: var(--status-danger) !important;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+}
+
+.shelfFull .shelfTitle {
+  color: var(--status-danger);
+}
+
+.shelfFullBadge {
+  background: var(--status-danger);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.slotText {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.slot.occupied .slotText {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ===== Modal Base ===== */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal {
+  width: 400px;
+  padding: 2rem;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.modalClose:hover {
+  color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+.itemDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.itemRow span:first-child {
+  color: var(--text-muted);
+}
+
+.statusBadge {
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.statusSuccess {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--status-success);
+}
+
+.statusDanger {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--status-danger);
+}
+
+/* ===== Sensor History Modal ===== */
+.historyModal {
+  width: min(720px, 92vw);
+  max-height: 85vh;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+}
+
+.historyModalHeader {
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.historyTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.historyIconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.historyTitleRow h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.historySubtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.historyRangeBar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.rangeBtn {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.rangeBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+}
+
+.rangeBtnActive {
+  background: var(--accent-primary) !important;
+  color: white !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* ===== History Table ===== */
+.historyTableWrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+  max-height: 55vh;
+}
+
+.historyTableWrap::-webkit-scrollbar {
+  width: 6px;
+}
+
+.historyTableWrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.historyTableWrap::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85rem;
+}
+
+.historyTable thead {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.historyTable th {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.historyTable td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.historyTable tbody tr {
+  transition: background 0.15s;
+}
+
+.historyTable tbody tr:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.latestRow {
+  background: rgba(99, 102, 241, 0.06) !important;
+}
+
+.latestRow td {
+  border-bottom-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+.rowIndex {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  width: 30px;
+}
+
+.rowTimestamp {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.sensorBadge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 55px;
+  text-align: center;
+}
+
+/* ===== Inventory Modal ===== */
+.inventoryModal {
+  width: min(860px, 94vw);
+  max-height: 85vh;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+}
+
+.codeTag {
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent-primary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.locationBadge {
+  display: inline-block;
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.qtyBadge {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 36px;
+  text-align: center;
+}
+
+/* ===== History Footer ===== */
+.historyFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ===== Loading & Empty ===== */
+.historyLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  gap: 1rem;
+  color: var(--text-muted);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.historyEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  gap: 1rem;
+  color: var(--text-muted);
+}
+
+/* ===== Light Mode Dashboard ===== */
+:global([data-theme="light"]) .filterBtn {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .shelf {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+:global([data-theme="light"]) .slot {
+  background: var(--bg-secondary);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="light"]) .slot.occupied {
+  background: rgba(59, 130, 246, 0.06);
+}
+
+:global([data-theme="light"]) .shelfFull {
+  background: rgba(239, 68, 68, 0.03);
+}
+
+:global([data-theme="light"]) .modalOverlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme="light"]) .rangeBtn {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.1);
+}
+
+:global([data-theme="light"]) .rangeBtn:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+:global([data-theme="light"]) .historyTable th {
+  background: var(--bg-primary);
+}
+
+:global([data-theme="light"]) .historyTable tbody tr:hover {
+  background: rgba(0,0,0,0.02);
+}
+
+:global([data-theme="light"]) .latestRow {
+  background: rgba(99, 102, 241, 0.04) !important;
+}
+
+:global([data-theme="light"]) .historyTableWrap::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1);
+}
+
+:global([data-theme="light"]) .cardClickable:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="light"]) .viewToggle {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 1200px) {
+  .shelvesContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .shelvesContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .historyModal,
+  .inventoryModal {
+    width: 95vw;
+    max-height: 90vh;
+  }
+
+  .historyModalHeader {
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  .historyFooter {
+    padding: 0.75rem 1rem;
+  }
+
+  .historyTable {
+    font-size: 0.78rem;
+  }
+
+  .historyTable th,
+  .historyTable td {
+    padding: 8px;
+  }
+}
