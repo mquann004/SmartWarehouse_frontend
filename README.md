@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# 🌐 Smart Warehouse Frontend (React 3D Dashboard)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <img src="https://img.shields.io/badge/Library-React_18-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Build_Tool-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+</div>
 
-Currently, two official plugins are available:
+## 📖 Introduction
+Đây là mã nguồn Frontend (Web Dashboard) của hệ thống kho thông minh, được xây dựng bằng **React** và **TypeScript**. 
+Frontend cung cấp một trải nghiệm người dùng (UX) hiện đại và chuyên nghiệp để theo dõi toàn bộ trạng thái kho hàng. Các tính năng nổi bật bao gồm:
+- **Biểu đồ thời gian thực:** Cập nhật ngay lập tức các chỉ số môi trường (Nhiệt độ, Độ ẩm, Khí Gas).
+- **Mô phỏng 3D:** Khả năng dựng hình sơ đồ kho dưới dạng không gian 3D, với màu sắc cảnh báo linh hoạt.
+- **AI Chat Widget:** Một cửa sổ trợ lý ảo thu nhỏ, luôn sẵn sàng giải đáp các truy vấn kho bãi bằng tiếng Việt.
+- **Hệ thống cảnh báo:** Hiển thị tức thời (Pop-up) khi có rủi ro về nhiệt độ cao hay rò rỉ khí Gas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📂 Folder Structure
 
-## React Compiler
+Dự án sử dụng cấu trúc thư mục tiêu chuẩn của React Vite, chú trọng vào việc chia nhỏ component (Component-Driven):
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+frontend/src/
+├── assets/               # Hình ảnh, font chữ tĩnh
+├── components/           # Các UI Components dùng chung (Sidebar, AI Chat Widget, 3D Map, Alert...)
+├── config/               # Cấu hình hệ thống (Ví dụ: file api.ts kết nối với Backend)
+├── contexts/             # Global State Management sử dụng React Context (AppContext)
+├── layouts/              # Cấu trúc khung giao diện trang (MainLayout)
+├── pages/                # Nội dung các trang chính (Dashboard, Inventory, History, Admin Panel, Login)
+├── types/                # Định nghĩa các Interface & Types cho TypeScript
+├── App.tsx               # Root Component quản lý toàn bộ hệ thống Routing (React Router)
+└── index.css             # File style CSS chung toàn hệ thống
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Setup & Run Instructions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Dự án này sử dụng Node.js và Vite để khởi chạy nhanh chóng.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Bước 1: Chuẩn bị môi trường
+- Cài đặt **Node.js** (Phiên bản v18 hoặc mới hơn).
+- Mở Terminal (Cmd/Powershell) trỏ tới thư mục `frontend`.
+
+### Bước 2: Cài đặt Dependencies
+Cài đặt tất cả các gói thư viện cần thiết đã được khai báo trong `package.json` bằng lệnh:
+```bash
+npm install
 ```
+
+### Bước 3: Cấu hình API kết nối
+Theo mặc định, Frontend sẽ tự động lấy địa chỉ IP của máy tính để kết nối với Backend (cổng `8000`). Nếu Backend của bạn chạy ở một máy tính khác, hãy sửa đổi biến `API_BASE` bên trong file `src/config/api.ts`:
+```typescript
+export const API_BASE = `http://192.168.1.X:8000/api`;
+```
+
+### Bước 4: Khởi chạy môi trường Phát triển (Development)
+Sử dụng lệnh sau để khởi động máy chủ ảo Vite:
+```bash
+npm run dev
+```
+
+Sau khi chạy xong, trình duyệt sẽ cung cấp một đường link (thường là `http://localhost:5173`). Bạn chỉ cần click vào để trải nghiệm Hệ thống quản lý kho thông minh.
